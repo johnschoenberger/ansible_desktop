@@ -10,12 +10,27 @@
         - htop
         - tmux
         - vim-nox
+
   - name: copy wallpaper file
     copy:
       src: files/wallpaper.png
       dest: /usr/share/backgrounds/ansible-wallpaper.png
       owner: root
       group: root
+
+  - name: add john user
+    user:
+      name: john
+      system: no
+
+  - name: set up sudo for john
+    copy:
+      src: files/sudoer_john
+      dest: /etc/sudoers.d/john
+      owner: root
+      group: root
+      mode: 0440
+
 
   - name: set wallpaper
     become_user: john
