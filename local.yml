@@ -22,6 +22,10 @@
     user:
       name: john
       system: no
+      state: present
+      shell: /bin/bash
+      createhome: yes
+      home: /home/john
 
   - name: set up sudo for john
     copy:
@@ -55,6 +59,7 @@
     user:
       name: velociraptor
       system: yes
+
 
   - name: set up sudo for ansible
     copy:
