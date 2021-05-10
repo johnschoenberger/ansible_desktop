@@ -1,0 +1,36 @@
+- name: add john user
+    user:
+      name: john
+      system: no
+      state: present
+      shell: /bin/bash
+      createhome: yes
+      home: /home/john
+
+- name: set up sudo for john
+    copy:
+      src: files/sudoer_john
+      dest: /etc/sudoers.d/john
+      owner: root
+      group: root
+      mode: 0440
+
+- name: copy custom .bashrc file
+    copy:
+      src: files/bashrc
+      dest: /home/john/.bashrc
+      owner: john
+      group: john
+
+- name: add ansible user
+    user:
+      name: velociraptor
+      system: yes
+
+- name: set up sudo for ansible
+    copy:
+      src: files/sudoer_velociraptor
+      dest: /etc/sudoers.d/velociraptor
+      owner: root
+      group: root
+      mode: 0440

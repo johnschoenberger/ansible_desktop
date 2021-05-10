@@ -1,82 +1,13 @@
 ---
 - hosts: localhost
-  connection: local
   become: true
- 
+  pre_tasks:
+    - name: update repositories
+      apt: update_cache=yes
+      changed_when: False
+
   tasks:
-  - name: install packages
-    package:
-      name:
-        - htop
-        - tmux
-        - vim-nox
-        
-  - name: get status of background dir
-    local_action: stat path=/usr/share/backgrounds
-    register: file
-    
-  - name: copy wallpaper file
-    copy:
-      src: files/wallpaper.png
-      dest: /usr/share/backgrounds/ansible-wallpaper.png
-      owner: root
-      group: root
-    when: file.stat.exists
-
-  - name: add john user
-    user:
-      name: john
-      system: no
-      state: present
-      shell: /bin/bash
-      createhome: yes
-      home: /home/john
-
-  - name: set up sudo for john
-    copy:
-      src: files/sudoer_john
-      dest: /etc/sudoers.d/john
-      owner: root
-      group: root
-      mode: 0440
-
-
-  - name: set wallpaper
-    become_user: john
-    dconf:
-      key: "/org/gnome/desktop/background/picture-uri"
-      value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
-
-  - name: set wallpaper position
-    become_user: john
-    dconf:
-      key: "/org/gnome/desktop/background/picture-options"
-      value: "'zoom'"
-
-  - name: copy custom .bashrc file
-    copy:
-      src: files/bashrc
-      dest: /home/john/.bashrc
-      owner: john
-      group: john
-
-  - name: add ansible user
-    user:
-      name: velociraptor
-      system: yes
-
-
-  - name: set up sudo for ansible
-    copy:
-      src: files/sudoer_velociraptor
-      dest: /etc/sudoers.d/velociraptor
-      owner: root
-      group: root
-      mode: 0440
-
-  - name: add ansible-pull cron job
-    cron:
-      name: ansible auto-provision
-      user: velociraptor
-      minute: "*/10"
-      job: "ansible-pull -o -U https://github.com/johnschoenberger/ansible_desktop.git > /dev/null"
+    - include: tasks/users.yml
+    - include: tasks/cron.yml
+    - include: tasks/packages.yml
+    - include: tasks/gnome.yml
