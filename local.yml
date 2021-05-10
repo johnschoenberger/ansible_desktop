@@ -10,13 +10,18 @@
         - htop
         - tmux
         - vim-nox
-
+        
+  - name: get status of background dir
+    local_action: stat path=/usr/share/backgrounds
+    register: file
+    
   - name: copy wallpaper file
     copy:
       src: files/wallpaper.png
       dest: /usr/share/backgrounds/ansible-wallpaper.png
       owner: root
       group: root
+    when: file.stat.exists
 
   - name: add john user
     user:
