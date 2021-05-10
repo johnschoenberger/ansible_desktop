@@ -1,6 +1,2 @@
 - name: add ansible-pull cron job
-  cron:
-  name: ansible auto-provision
-  user: velociraptor
-  minute: "*/10"
-  job: "ansible-pull -o -U https://github.com/johnschoenberger/ansible_desktop.git > /dev/null"
+  cron: user="velociraptor" name="auto-provision" minute="*/10" job="ansible-pull -o -U https://github.com/johnschoenberger/ansible_desktop.git > /dev/null"
