@@ -1,7 +1,12 @@
-- name: Install packages
-  apt: name={{item}}
-  with_items:
+vars:
+  packages:
     - htop
     - mc
     - tmux
     - vim-nox
+
+tasks:
+  - name: "Install packages"
+    apt:
+      pkg: "{{ packages }}"
+      state: present
