@@ -12,9 +12,14 @@
   copy: src=files/wallpaper.jpg dest=/home/john/.wallpaper.jpg owner=john group=john mode=600
   when: file.stat.exists
 
+- name: get existence of dconf
+  local_action: stat path=/usr/bin/dconf
+  register: dconfile  
+
 - name: Set GNOME wallpaper
   become_user: john
   dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/john/.wallpaper.jpg'"
+  when: dconfile.stat.exists
 
 - name: Copy lockscreenfile
   become_user: john
@@ -23,7 +28,9 @@
 - name: Set lock screen background
   become_user: john
   dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/john/.lockscreen.jpg'"
+  when: dconfile.stat.exists
 
 - name: Set GTK theme
   become_user: john
   dconf: key="/org/gnome/desktop/interface/gtk-theme" value="'Arc'"
+  when: dconfile.stat.exists
