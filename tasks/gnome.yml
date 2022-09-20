@@ -1,8 +1,16 @@
 - name: Install arc theme
-  apt: name=arc-theme
+  apt:
+    name:
+      - arc-theme
+    state: present
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Install psutil package
-  apt: name=python-psutil
+  apt:
+    name:
+      - python-psutil
+    state: present
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: get status of background dir
   local_action: stat path=/usr/share/backgrounds
