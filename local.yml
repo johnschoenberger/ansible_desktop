@@ -1,18 +1,27 @@
 ---
 - hosts: localhost
+  tags: always
   become: true
   vars: 
     - ansible_shell_allow_world_readable_temp: true
   pre_tasks:
-    - name: update repositories (CentOS/Rocky)
-      dnf:
-       update_cache=yes
-      when: ansible_distribution == "CentOS" or "ansible_distribution" == "Rocky" or "ansible_distribution" == "RedHat"
+    - name: pre-run | update package cache (arch)
+      tags: always
+      pacman: update_cache=yes
+      changed_when: False
+      when: ansible_distribution == "Archlinux"
 
-    - name: update repositories (Debian/Ubuntu)
-      apt:
-       update_cache=yes
-      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - name: pre-run | update package cache (CentOS/Rocky/RHEL)
+      tags: always
+      dnf: update_cache=yes
+      changed_when: False
+      when: ansible_distribution in ["CentOS", "Rocky", "RedHat"]
+
+    - name: pre-run | update package cache (Debian/Ubuntu)
+      tags: always
+      apt: update_cache=yes
+      changed_when: False
+      when: ansible_distribution in ["Debian", "Ubuntu"]
 
   tasks:
     - include: tasks/users.yml
