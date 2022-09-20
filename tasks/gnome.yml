@@ -8,7 +8,7 @@
 - name: Install psutil package
   apt:
     name:
-      - python-psutil
+      - python3-psutil
     state: present
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
