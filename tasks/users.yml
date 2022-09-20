@@ -1,5 +1,5 @@
 - name: add john user
-  user: name=john system=no state=present shell=/bin/bash createhome=yes home=/home/john
+  user: name=john system=no state=present uid=501 shell=/bin/bash createhome=yes home=/home/john
 
 - name: set up sudo for john
   copy: src=files/sudoer_john dest=/etc/sudoers.d/john owner=root group=root mode=0440
