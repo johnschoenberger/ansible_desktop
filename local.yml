@@ -4,6 +4,10 @@
   become: true
   vars: 
     - ansible_shell_allow_world_readable_temp: true
+    - docker_repo_key_url: https://download.docker.com/linux/ubuntu/gpg
+    - hashicorp_repo_key_url: https://apt.releases.hashicorp.com/gpg
+    - syncthing_repo_key_url: https://syncthing.net/release-key.gpg
+    - zerotier_repo_key_url: http://download.zerotier.com/contact%40zerotier.com.gpg
   pre_tasks:
     - name: pre-run | update package cache (arch)
       tags: always
@@ -28,3 +32,4 @@
     - include: tasks/cron.yml
     - include: tasks/packages.yml
     - include: tasks/gnome.yml
+    - include: tasks/aptkey.yml
