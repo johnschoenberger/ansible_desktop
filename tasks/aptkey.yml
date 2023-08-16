@@ -4,6 +4,7 @@
     dest: /etc/apt/trusted.gpg.d/docker.asc
     mode: '0644'
     force: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Add Hashicorp apt repository key.
   ansible.builtin.get_url:
@@ -11,6 +12,7 @@
     dest: /etc/apt/trusted.gpg.d/hashicorp.asc
     mode: '0644'
     force: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Add Syncthing apt repository key.
   ansible.builtin.get_url:
@@ -18,6 +20,7 @@
     dest: /etc/apt/trusted.gpg.d/syncthing.asc
     mode: '0644'
     force: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Add Zerotier apt repository key.
   ansible.builtin.get_url:
@@ -25,3 +28,4 @@
     dest: /etc/apt/trusted.gpg.d/zerotier.asc
     mode: '0644'
     force: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
