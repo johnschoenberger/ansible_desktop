@@ -1,1 +1,27 @@
+- name: Add Docker apt repository key.
+  ansible.builtin.get_url:
+    url: "{{ docker_repo_key_url }}"
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: '0644'
+    force: true
 
+- name: Add Hashicorp apt repository key.
+  ansible.builtin.get_url:
+    url: "{{ hashicorp_repo_key_url }}"
+    dest: /etc/apt/trusted.gpg.d/hashicorp.asc
+    mode: '0644'
+    force: true
+
+- name: Add Syncthing apt repository key.
+  ansible.builtin.get_url:
+    url: "{{ syncthing_repo_key_url }}"
+    dest: /etc/apt/trusted.gpg.d/syncthing.asc
+    mode: '0644'
+    force: true
+
+- name: Add Zerotier apt repository key.
+  ansible.builtin.get_url:
+    url: "{{ zerotier_repo_key_url }}"
+    dest: /etc/apt/trusted.gpg.d/zerotier.asc
+    mode: '0644'
+    force: true
