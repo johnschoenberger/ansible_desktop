@@ -23,6 +23,7 @@
     owner: velociraptor
     group: velociraptor
     mode: 0755
+    recurse: yes
     
 - name: set up sudo for ansible
   copy: src=files/sudoer_velociraptor dest=/etc/sudoers.d/velociraptor owner=root group=root mode=0440
