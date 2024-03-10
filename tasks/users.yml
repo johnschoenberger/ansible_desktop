@@ -8,7 +8,7 @@
   copy: src=files/bashrc dest=/home/john/.bashrc owner=john group=john
 
 - name: add ansible user
-  user: name=velociraptor system=yes
+  user: name=velociraptor system=no state=present uid=9999 gid=9999 shell=/bin/bash createhome=yes home=/home/velociraptor
 
 - name: set up sudo for ansible
   copy: src=files/sudoer_velociraptor dest=/etc/sudoers.d/velociraptor owner=root group=root mode=0440
