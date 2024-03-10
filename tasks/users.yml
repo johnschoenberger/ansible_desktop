@@ -15,6 +15,14 @@
 
 - name: add ansible user
   user: name=velociraptor system=no state=present uid=9999 groups=velociraptor shell=/bin/bash createhome=yes home=/home/velociraptor
-
+  
+- name: set ansible home directory permissions
+  ansible.builtin.file:
+    path: /home/velociraptor
+    state: directory
+    owner: velociraptor
+    group: velociraptor
+    mode: 0755
+    
 - name: set up sudo for ansible
   copy: src=files/sudoer_velociraptor dest=/etc/sudoers.d/velociraptor owner=root group=root mode=0440
