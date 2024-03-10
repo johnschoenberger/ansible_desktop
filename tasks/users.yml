@@ -1,5 +1,19 @@
+- name: add john group
+  ansible.builtin.group:
+    name: john
+    state: present
+    gid: 501
+    
 - name: add john user
   user: name=john system=no state=present uid=501 shell=/bin/bash createhome=yes home=/home/john
+
+- name: set john home directory permissions
+  ansible.builtin.file:
+    path: /home/john
+    state: directory
+    owner: john
+    group: john
+    recurse: yes
 
 - name: set up sudo for john
   copy: src=files/sudoer_john dest=/etc/sudoers.d/john owner=root group=root mode=0440
@@ -22,7 +36,6 @@
     state: directory
     owner: velociraptor
     group: velociraptor
-    mode: 0755
     recurse: yes
     
 - name: set up sudo for ansible
