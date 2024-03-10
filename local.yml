@@ -28,8 +28,13 @@
       when: ansible_distribution in ["Debian", "Ubuntu"]
 
   tasks:
-    - include: tasks/users.yml
-    - include: tasks/cron.yml
-    - include: tasks/packages.yml
-    - include: tasks/gnome.yml
-    - include: tasks/aptkey.yml
+    - name: Setup users
+      ansible.builtin.import_tasks: tasks/users.yml
+    - name: Setup cron
+      ansible.builtin.import_tasks: tasks/cron.yml
+    - name: Setup package
+      ansible.builtin.import_tasks: tasks/packages.yml
+    - name: Setup apt keys
+      ansible.builtin.import_tasks: tasks/aptkey.yml
+    - name: Setup gnome
+      ansible.builtin.import_tasks: tasks/gnome.yml
