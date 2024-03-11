@@ -5,6 +5,7 @@
       - mc
       - tmux
       - vim
+      - nfs-utils
     state: present
   when: ansible_distribution == "CentOS" or "ansible_distribution" == "Rocky" or "ansible_distribution" == "RedHat"
 
@@ -15,5 +16,6 @@
       - mc
       - tmux
       - vim
+      - nfs-common
     state: present
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
