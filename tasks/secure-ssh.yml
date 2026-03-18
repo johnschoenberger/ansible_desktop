@@ -8,9 +8,3 @@
      validate: 'sshd -t -f %s' # Validate config before committing
   notify:
     - restart_sshd
-
-  handlers:
-    - name: "restart_sshd"
-      ansible.builtin.service:
-        name: sshd
-        state: restarted
