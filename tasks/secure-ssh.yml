@@ -1,0 +1,16 @@
+- name: Deploy custom sshd configuration file
+  ansible.builtin.template:
+     src: templates/custom_sshd.conf.j2
+     dest: /etc/ssh/sshd_config.d/50-custom-settings.conf
+     owner: root
+     group: root
+     mode: '0600'
+     validate: 'sshd -t -f %s' # Validate config before committing
+  notify:
+    - Restart sshd
+
+  handlers:
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
