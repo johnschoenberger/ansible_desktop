@@ -38,3 +38,5 @@
       ansible.builtin.import_tasks: tasks/aptkey.yml
     - name: Setup gnome
       ansible.builtin.import_tasks: tasks/gnome.yml
+    - name: Secure ssh ciphers
+      ansible.builtin.import_tasks: tasks/secure-ssh.yml
