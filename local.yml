@@ -13,19 +13,19 @@
       tags: always
       pacman: update_cache=yes
       changed_when: False
-      when: ansible_distribution == "Archlinux"
+      when: ansible_facts['os_family'] == "Archlinux"
 
     - name: pre-run | update package cache (CentOS/Rocky/RHEL)
       tags: always
       dnf: update_cache=yes
       changed_when: False
-      when: ansible_distribution in ["CentOS", "Rocky", "RedHat"]
+      when: ansible_facts['os_family'] in ["CentOS", "Rocky", "RedHat"]
 
     - name: pre-run | update package cache (Debian/Ubuntu)
       tags: always
       apt: update_cache=yes
       changed_when: False
-      when: ansible_distribution in ["Debian", "Ubuntu"]
+      when: ansible_facts['os_family'] in ["Debian", "Ubuntu"]
 
   tasks:
     - name: Setup users
