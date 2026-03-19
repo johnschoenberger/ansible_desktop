@@ -7,7 +7,7 @@
       - vim
       - nfs-utils
     state: present
-  when: ansible_distribution == "CentOS" or "ansible_distribution" == "Rocky" or "ansible_distribution" == "RedHat"
+  when: ansible_facts['os_family'] == "CentOS" or ansible_facts['os_family'] == "Rocky" or ansible_facts['os_family'] == "RedHat"
 
 - name: "Install packages (Debian/Ubuntu)"
   apt:
@@ -18,4 +18,4 @@
       - vim
       - nfs-common
     state: present
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Ubuntu'
