@@ -3,14 +3,14 @@
     name:
       - arc-theme
     state: present
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Ubuntu'
 
 - name: Install psutil package
   apt:
     name:
       - python3-psutil
     state: present
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Ubuntu'
 
 - name: get status of background dir
   local_action: stat path=/usr/share/backgrounds
